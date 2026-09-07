@@ -2,4 +2,12 @@
 
 Hey, my name is **Abizar Tiki Wala**, and this is my new project.
 
-This project is a **Construction Material Guide** built using **Corrective RAG**.
+This project is a **Construction Material Guide** built using **Corrective Retrieval-Augmented Generation (Corrective RAG)**.
+
+The application is designed to help users find relevant information about construction materials and provide accurate, context-aware responses based on the available knowledge base.
+
+The project uses a retrieval-based approach to search for relevant information before generating a response. Corrective RAG is used to improve the retrieval process by evaluating the retrieved information and correcting the workflow when the retrieved results are not sufficiently relevant.
+
+The goal of this project is to explore and implement **RAG pipelines, document retrieval, vector databases, embeddings, and Large Language Models (LLMs)** in a practical real-world use case.
+
+This project is currently under development, and more features and documentation will be added in future updates.
