@@ -10,4 +10,24 @@ The project uses a retrieval-based approach to search for relevant information b
 
 The goal of this project is to explore and implement **RAG pipelines, document retrieval, vector databases, embeddings, and Large Language Models (LLMs)** in a practical real-world use case.
 
+## Current Progress
+
+### ✅ Completed
+
+* Project setup
+* PDF document loading using `PyPDFLoader`
+* Document processing
+* Text chunking using `RecursiveCharacterTextSplitter`
+* Configured chunk size and chunk overlap
+* Created a separate testing file to verify document loading and chunking
+
+### 🚧 In Progress
+
+* Embedding generation
+* Vector database integration
+* Document retrieval
+* Corrective RAG workflow
+* LLM integration
+* Streamlit application
+
 This project is currently under development, and more features and documentation will be added in future updates.
