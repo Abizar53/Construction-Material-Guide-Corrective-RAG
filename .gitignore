@@ -3,8 +3,3 @@ Virtual_Env/
 
 # Environment variables
 .env
-# Virtual environment
-Virtual_Env/
-
-# Environment variables
-.env
