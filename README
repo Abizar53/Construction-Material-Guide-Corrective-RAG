@@ -1,5 +1,3 @@
-# Construction Material Guide — Corrective RAG
-
 Hey, my name is **Abizar Tiki Wala**, and this is my new project.
 
 This project is a **Construction Material Guide** built using **Corrective Retrieval-Augmented Generation (Corrective RAG)**.
@@ -12,22 +10,30 @@ The goal of this project is to explore and implement **RAG pipelines, document r
 
 ## Current Progress
 
-### ✅ Completed
+### Completed
 
-* Project setup
+* Project setup and folder structure
 * PDF document loading using `PyPDFLoader`
-* Document processing
+* Document processing and text extraction
 * Text chunking using `RecursiveCharacterTextSplitter`
 * Configured chunk size and chunk overlap
-* Created a separate testing file to verify document loading and chunking
+* Embedding generation using Hugging Face embeddings
+* Vector Store implementation using **Typesense**
+* Retriever setup using Typesense Vector Store
+* Prompt Template implementation for passing retrieved context and user questions to the LLM
 
-### 🚧 In Progress
+### In Progress
 
-* Embedding generation
-* Vector database integration
-* Document retrieval
-* Corrective RAG workflow
+* Corrective RAG implementation
 * LLM integration
-* Streamlit application
+* Connecting Retriever → Prompt Template → LLM
+* Final response generation
+* Streamlit interface
 
-This project is currently under development, and more features and documentation will be added in future updates.
+### Next Steps
+
+* Implement document relevance evaluation
+* Add corrective retrieval when retrieved context is insufficient
+* Integrate the LLM with the RAG pipeline
+* Build the Streamlit chatbot interface
+* Test the complete end-to-end pipeline
