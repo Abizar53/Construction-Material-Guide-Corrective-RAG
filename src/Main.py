@@ -29,7 +29,7 @@ Content_text="\n\n".join(docs.page_content for docs in Retrived_docs)
 #prompt template
 Template = Get_Prompt_template()
 Retrived_docs=Template.invoke({
-    "Context": Retrived_docs,
+    "Context": Context,
     "Question": "What is cement used for?"
 })
 
