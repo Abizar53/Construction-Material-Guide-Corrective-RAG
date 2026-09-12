@@ -35,6 +35,11 @@ Retrived_docs=Template.invoke({
 
 print(Retrived_docs)
 
+# Forming LLM 
+LLM=LLModel()
+LLM_Response=LLM.invoke(Formatted_template)
+#print(LLM_Response)
+
 
 
 
