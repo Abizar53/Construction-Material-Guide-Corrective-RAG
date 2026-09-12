@@ -41,6 +41,15 @@ LLM_Response=LLM.invoke(Formatted_template)
 #print(LLM_Response)
 
 
+# Forming Runnables 
+Template_chain=RunnableParallel({   # this will create a template for passing onto the LM
+    "Question": RunnablePassthrough(),
+    "Context": Retriever_pipeline | RunnableLambda(Format_docs)
+})
+
+Main_chain= Template_chain | Get_Prompt_template() | LLM | StrOutputParser()
+Result=Main_chain.invoke(Question)
+print("This is the final answer ",Result)
 
 
 
