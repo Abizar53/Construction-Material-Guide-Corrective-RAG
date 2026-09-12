@@ -37,3 +37,6 @@ The goal of this project is to explore and implement **RAG pipelines, document r
 * Integrate the LLM with the RAG pipeline
 * Build the Streamlit chatbot interface
 * Test the complete end-to-end pipeline
+
+
+Wait for some days, all the modules will be updated
