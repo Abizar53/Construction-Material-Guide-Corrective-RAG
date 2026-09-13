@@ -1,4 +1,4 @@
-from Document_managing import Load_documents,Recursive_chunks
+from Document_managing import Load_documents,Recursive_chunks,Format_docs
 from Vector_Store import EmbeddingVectorStore
 from Temlates import Get_Prompt_template
 
@@ -31,10 +31,10 @@ Template = Get_Prompt_template()
 Retrived_docs=Template.invoke({
     "Context": Retrived_docs,
     "Question": "What is cement used for?"
-})
+})    #print(Retrived_docs)
 
-print(Retrived_docs)
-
+Context=Format_docs(Retrived_docs)
+print(Context)
 
 
 
