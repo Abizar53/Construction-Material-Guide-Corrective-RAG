@@ -1,7 +1,9 @@
-from Document_managing import Load_documents,Recursive_chunks,Format_docs
-from Vector_Store import EmbeddingVectorStore
-from Temlates import Get_Prompt_template
-
+from _01_Document_managing import Load_documents,Recursive_chunks,Format_docs
+from _02_Vector_Store import EmbeddingVectorStore
+from _03_Temlates import Get_Prompt_template
+from _04_LLM_Model import LLModel
+from langchain_core.runnables import RunnablePassthrough, RunnableParallel, RunnableLambda
+from langchain_core.output_parsers import StrOutputParser
 
 # Loader
 file_path="Data/Building_Materials_Product_Database (1).pdf"
@@ -12,7 +14,7 @@ chunked=Recursive_chunks(docs_load)
 print("Chunks created:", len(chunked))
 
 # vector Database ---> Typesene
-#
+
 Vector_DB=EmbeddingVectorStore(chunked)
 print("Vector store created successfully!")
 
@@ -20,21 +22,36 @@ print("Vector store created successfully!")
 # Now retriever pipeline will start
 
 Question="dimension of ceramic floor tiles"
-# Retirver pipeline from vector store
-Retriver_pipeline=Vector_DB.as_retriever(search_type='similarity',search_kwargs={"k":4})  
-# Retrive Relevant content
-Retrived_docs=Retriver_pipeline.invoke(Question)
+# Retirever pipeline from vector store
+Retriever_pipeline=Vector_DB.as_retriever(search_type='similarity',search_kwargs={"k":4})  
+# Retrieve Relevant content
+Retrieved_docs=Retriever_pipeline.invoke(Question)
 # convert into text, (take only page content)
-Content_text="\n\n".join(docs.page_content for docs in Retrived_docs)
+Context=Format_docs(Retrieved_docs)
 #prompt template
 Template = Get_Prompt_template()
-Retrived_docs=Template.invoke({
-    "Context": Retrived_docs,
+Formatted_template=Template.invoke({
+    "Context": Context,
     "Question": "What is cement used for?"
-})    #print(Retrived_docs)
+})    
+# print("----> this is context",Context)
+# print("----> this is retrived docs",Retrived_docs)
 
-Context=Format_docs(Retrived_docs)
-print(Context)
+
+# Forming LLM 
+LLM=LLModel()
+LLM_Response=LLM.invoke(Formatted_template)
+#print(LLM_Response)
+
+# Forming Runnables 
+Template_chain=RunnableParallel({   # this will create a template for passing onto the LM
+    "Question": RunnablePassthrough(),
+    "Context": Retriever_pipeline | RunnableLambda(Format_docs)
+})
+
+Main_chain= Template_chain | Get_Prompt_template() | LLM | StrOutputParser()
+Result=Main_chain.invoke(Question)
+print("This is the final answer ",Result)
 
 
 
