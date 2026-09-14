@@ -22,18 +22,154 @@ The goal of this project is to explore and implement **RAG pipelines, document r
 * Retriever setup using Typesense Vector Store
 * Prompt Template implementation for passing retrieved context and user questions to the LLM
 
-### In Progress
+## In Progress
 
-* Corrective RAG implementation
-* LLM integration
-* Connecting Retriever → Prompt Template → LLM
-* Final response generation
-* Streamlit interface
+- Implementing the knowledge-refinement phase
+- Filtering retrieved document sentences based on question relevance
+- Creating the refined context for the final LLM response
+- Integrating the refined context into the complete Corrective RAG pipeline
+- Testing and improving retrieval and response quality
 
-### Next Steps
 
-* Implement document relevance evaluation
-* Add corrective retrieval when retrieved context is insufficient
-* Integrate the LLM with the RAG pipeline
-* Build the Streamlit chatbot interface
-* Test the complete end-to-end pipeline
+
+C_RAG/
+│
+├── Data/
+│   └── Building_Materials_Product_Database (1).pdf
+│
+├── src/
+│   ├── _01_Document_managing.py
+│   ├── _02_Vector_Store.py
+│   ├── _03_Temlates.py
+│   ├── _04_LLM_Model.py
+│   ├── _05_Knowledge_Refinement.py
+│   └── Main.py
+│
+├── requirements.txt
+└── README.md
+
+Implemented Components
+1. Document Managing
+
+The document-managing module is responsible for loading and processing construction-material documents.
+
+Current functionality includes:
+
+Loading PDF documents using PyPDFLoader
+
+Splitting documents into smaller chunks
+
+Using RecursiveCharacterTextSplitter
+
+Creating overlapping text chunks for better retrieval
+
+Current chunking configuration:
+
+chunk_size = 452
+chunk_overlap = 52
+2. Vector Store — Typesense
+
+The project uses Typesense as the vector database.
+
+The vector-store module performs the following tasks:
+
+Generates embeddings for document chunks
+
+Uses Hugging Face embeddings
+
+Stores document vectors in Typesense
+
+Creates a searchable vector database
+
+Retrieves relevant documents based on semantic similarity
+
+Embedding model:
+
+sentence-transformers/all-MiniLM-L6-v2
+
+The embedding dimension is:384
+
+3. Prompt Templates
+
+The prompt-template module contains the prompts used by the application.
+
+These templates define:
+
+How the LLM should answer construction-material questions
+
+How retrieved context should be used
+
+How the model should avoid generating unsupported information
+
+How individual retrieved sentences can be evaluated for relevance
+
+The main answering prompt instructs the LLM to answer using the retrieved context and to avoid making up information.
+
+4. LLM Model
+
+The LLM module is responsible for configuring the language model used in the RAG pipeline.
+
+The project currently uses:
+
+ChatGroq
+
+Model: openai/gpt-oss-120b
+
+Temperature: 0
+
+The LLM is used to generate answers based on the retrieved construction-material information.
+
+5. Knowledge Refinement
+
+The knowledge-refinement module is being developed as part of the Corrective RAG workflow.
+
+The current planned workflow is:
+
+User Question
+      ↓
+Retrieve Relevant Documents
+      ↓
+Combine Retrieved Documents
+      ↓
+Split Context into Sentences
+      ↓
+Evaluate Each Sentence for Relevance
+      ↓
+Keep Relevant Sentences
+      ↓
+Create Refined Context
+      ↓
+Generate Final Answer
+
+The purpose of knowledge refinement is to remove irrelevant information from the retrieved context before sending it to the main answering LLM.
+
+Current Progress
+PDF document loading
+Document chunking
+Hugging Face embeddings
+Typesense vector store
+Similarity-based document retrieval
+Prompt-template creation
+Groq LLM configuration
+Complete knowledge-refinement workflow
+Complete Corrective RAG pipeline
+Streamlit user interface
+Technologies Used
+
+Python
+
+LangChain
+
+PyPDFLoader
+
+RecursiveCharacterTextSplitter
+
+Hugging Face Embeddings
+
+Typesense
+
+ChatGroq
+
+GPT-OSS 120B
+
+Retrieval-Augmented Generat
